@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+    int data;
+    node *next;
+    node(int x)
+    {
+        data = x;
+        next = NULL;
+    }
+};
+void printList(node *head)
+{
+    if (!head)
+        return;
+    cout << "->" << head->data;
+    return printList(head->next);
+}
+node *insertEnd(node *head, int x)
+{
+    node *temp = new node(x);
+    if (head == NULL)
+    {
+        return temp;
+    }
+    node *current = head;
+    while (current->next != NULL)
+    {
+        current = current->next;
+    }
+    current->next = temp;
+    return head;
+}
+node *NthNode(node *head,int n)
+{   int count = 0;
+    node *current = head;
+    while(current->next != NULL)
+    {   
+        count = count + 1;
+        current = current->next;
+    }
+    int m = count-n;
+    current = head;
+    // for(int i=0;i<(m+1);i++)
+    for (int i = 1; i < m+2; i++)
+
+    {
+        current=current->next;
+    }
+    cout << endl;
+    cout << "Nth element from END is: " << current->data;
+}
+
+int main()
+{
+    int n, x,y;
+    node *head = NULL;
+    cout << "How many elements you want to insert:";
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> x;
+        head = insertEnd(head, x);
+    }
+    printList(head);
+    cout << endl;
+
+    cout<<"Enter position from end you want to search for:";
+    cin>>y;
+    NthNode(head,y);
+
+    return 0;
+}
